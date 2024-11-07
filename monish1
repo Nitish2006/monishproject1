@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #34495e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ecf0f1;
+        }
+
+        label {
+            font-size: 16px;
+            margin: 10px 0;
+            display: block;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #16a085;
+            background-color: #ecf0f1;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            background-color: #16a085;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #1abc9c;
+        }
+
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CGPA Calculator</h1>
+        <label for="semester1">Semester 1 CGPA:</label>
+        <input type="number" id="semester1" placeholder="Enter Semester 1 CGPA" min="0" max="10" step="0.01" required>
+
+        <label for="semester2">Semester 2 CGPA:</label>
+        <input type="number" id="semester2" placeholder="Enter Semester 2 CGPA" min="0" max="10" step="0.01" required>
+
+        <button class="btn" onclick="calculateCGPA()">Calculate CGPA</button>
+
+        <div id="result" class="result"></div>
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        function calculateCGPA() {
+            // Clear previous results or errors
+            document.getElementById('result').textContent = '';
+            document.getElementById('error').textContent = '';
+
+            // Get the input values
+            const semester1 = parseFloat(document.getElementById('semester1').value);
+            const semester2 = parseFloat(document.getElementById('semester2').value);
+
+            // Validate the input
+            if (isNaN(semester1) || isNaN(semester2) || semester1 < 0 || semester1 > 10 || semester2 < 0 || semester2 > 10) {
+                document.getElementById('error').textContent = "Please enter valid CGPA values (between 0 and 10).";
+                return;
+            }
+
+            // Calculate the weighted CGPA (formula based on the provided weights)
+            const overallCGPA = (19.5 * semester1 + 20.5 * semester2) / 40;
+
+            // Display the result
+            document.getElementById('result').textContent = `Overall CGPA: ${overallCGPA.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
